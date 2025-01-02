@@ -1,0 +1,6 @@
+photoscript
+langchain
+langchain-community
+langchain-core
+pillow
+
