@@ -92,6 +92,7 @@ All done
 - Generate "description" and "title"?
 - Maybe cluster the keywords to reduce the number of different keywords?
 - Create working albums with less than 100 photos to avoid user requests from iPhoto
+- Sometimes there are numbers in the keywords, like "1. cat, 2. black...". We need to remove this...
 
 ### Disclaimer:
 
