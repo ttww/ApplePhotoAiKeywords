@@ -205,7 +205,12 @@ def main() -> None:
         # Move the photos to the "done" album:
         print(f"Moving {len(photos_done)} photos to the DONE album.")   
         album_done.add(photos_done)
+        print(f"Moving {len(photos_not_done)} photos to the NOT DONE album.")   
         album_not_done.add(photos_not_done)
+
+        # Nothing happened anymore, we are done (happens if we max_image_counter > 99):
+        if len(photos_done) + len(photos_not_done) == 0:
+            break
         
         if max_image_counter > 99:
             print(f"Skipping removing photos from {IPHOTO_KEYWORD_ALBUM}, because we can't remove them from the album via apple script. :-(.)")
