@@ -8,7 +8,8 @@ To set the keywords, the following steps are performed:
 
 - A connection to iPhoto is established.
 - Photos are searched for in the album “ai-keywords”. If this album does not exist, it is created.
-- Each photo in the album is temporarily exported, sent to the LLM for keyword analysis, and processed for keywords.
+- The contents of this album are distributed across several working albums, each with a maximum of 99 items, to allow for automatic deletion by iPhoto later without confirmation (thanks, Apple :-(). The initial “ai-keywords” album is completely deleted and recreated empty keeping the working albums for processing.
+- We loop over each found working album and each photo in the album is temporarily exported, sent to the LLM for keyword analysis, and processed for keywords.
 - After processing, the temporarily downloaded image is deleted.
 - Videos are ignored and moved to the album "ai-keywords not DONE"
 - If an output language other than English is desired, the keywords are translated into German (via a second LLM call, this is done for a better translation quality).
@@ -79,7 +80,6 @@ All done
 
 
 - If the photos are stored in the cloud, they are automatically downloaded by iPhoto when accessed. Although the application temporarily saves only one photo at a time, iPhoto may keep the photos in the cache for a longer period. Therefore, depending on the situation, it is advisable not to add keywords to too many photos at once, as this might lead to long waits for downloads or cache cleanup. However, processing a few thousend photos at a time does not seem to cause any issues.
-- But: Because unwanted user interactions from iPhote (requesting the user if he wants to add/remove more than 99 photos from/to an album) the photos are only automatically removed from the import album, if the count is less than 100 images. This is a problem from the ugly API implementation from apple... ApplePhotoAiKeywords keeps track over the handled photos during the run, but this is not persistant. So, if you want more than 99 photes everything is working, but you need to remove the photos manually from the "ai-keywords" album after that batch :-(. Maybe I will create some batch working albums with less than 100 photos and delete/recreate the original "ai-keywords" album to avoid this limitation in the future...
 - The application does not close the iPhoto app. This appears to cause issues with the photoscript/iPhoto communication, and iPhoto may need to be force-quit afterward. If iPhoto is closed manually, no problems occur.
 - After adding keywords, iPhoto starts indexing internally, likely attempting to identify these keywords in other photos. So don’t be surprised if the computer shows additional activity afterward.
 - Eventually, this process might become obsolete due to “Apple Intelligence” — let’s wait and see… :-)
@@ -91,8 +91,6 @@ All done
 - Keywords of live images and movies?
 - Generate "description" and "title"?
 - Maybe cluster the keywords to reduce the number of different keywords?
-- Create working albums with less than 100 photos to avoid user requests from iPhoto
-- Sometimes there are numbers in the keywords, like "1. cat, 2. black...". We need to remove this...
 
 ### Disclaimer:
 
